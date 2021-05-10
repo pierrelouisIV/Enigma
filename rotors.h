@@ -16,6 +16,10 @@ int recherche_dichotomique(int * tab, int val, int borne_inf, int borne_sup);
 char crypter_lettre(char c);
 void mise_a_jour_rotors();
 
+// decrypter : 
+char decrypter_lettre(char c);
+void mise_a_jour_rotors_S();
+
 //
 void afficher_rotors();
 

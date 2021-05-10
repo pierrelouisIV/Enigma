@@ -12,16 +12,19 @@ int AZ[26] = {65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78,
 
 // Premier rotor :  
 int R1[26] = {0};
+int R1_s[26] = {0};
 		  
 // Second Rotor :		  
 int R2[26] = {0};
-		  
+int R2_s[26] = {0};
+  
 // Troisième Rotor : 		  
 int R3[26] = {0};
+int R3_s[26] = {0};
 		  
 // Reflecteur :		  
 int Reflect[26] = {0};
-
+int Reflect_s[26] = {0};
 
 
 // Algo de recherche dans l'alphabet :
@@ -61,6 +64,7 @@ void initialisation_rotor()
 		if(R1[a] == 0)
 		{
 			R1[a] = AZ[j];
+			R1_s[a] = AZ[j];
 			j++;
 		}
 	}
@@ -71,6 +75,7 @@ void initialisation_rotor()
 		if(R2[a] == 0)
 		{
 			R2[a] = AZ[j];
+			R2_s[a] = AZ[j];
 			j++;
 		}
 	}
@@ -81,6 +86,7 @@ void initialisation_rotor()
 		if(R3[a] == 0)
 		{
 			R3[a] = AZ[j];
+			R3_s[a] = AZ[j];
 			j++;
 		}
 	}
@@ -91,6 +97,7 @@ void initialisation_rotor()
 		if(Reflect[a] == 0)
 		{
 			Reflect[a] = AZ[j];
+			Reflect_s[a] = AZ[j];
 			j++;
 		}
 	}
@@ -142,6 +149,57 @@ char crypter_lettre(char c)
 	return c;
 }
 
+// decrypter :
+char decrypter_lettre(char c)
+{
+	int indice = -1;
+	// Aller :
+	indice = recherche_dichotomique(AZ, c, Z, L);
+	c = R1_s[indice];
+	indice = recherche_dichotomique(AZ, c, Z, L);
+	c = R2_s[indice];
+	indice = recherche_dichotomique(AZ, c, Z, L);
+	c = R3_s[indice];
+	
+	// Reflecteur :
+	for(int i = 0; i<L; ++i)
+	{
+		if(Reflect_s[i] == c)
+		{
+			c = AZ[i];
+			break;
+		}
+	}
+	
+	// Retour :
+	for(int i = 0; i<L; ++i)
+	{
+		if(R3_s[i] == c)
+		{
+			c = AZ[i];
+			break;
+		}
+	}
+	for(int i = 0; i<L; ++i)
+	{
+		if(R2_s[i] == c)
+		{
+			c = AZ[i];
+			break;
+		}
+	}
+	for(int i = 0; i<L; ++i)
+	{
+		if(R1_s[i] == c)
+		{
+			c = AZ[i];
+			break;
+		}
+	}
+	mise_a_jour_rotors_S();
+	return c;
+}
+
 // pour avancer les rotors d'un cran :
 void mise_a_jour_rotors()
 {
@@ -169,6 +227,32 @@ void mise_a_jour_rotors()
 	}
 }
 
+// pour avancer les rotors d'un cran :
+void mise_a_jour_rotors_S()
+{
+	// rotor le plus à droite :
+	for(int i=0; i<L; ++i)
+	{
+		if(R1_s[i] == 90) R1_s[i] = 65;
+		else R1_s[i] += 1;
+	}
+	if(R1_s[0] == P1)
+	{
+		for(int j =0; j<L; ++j)
+		{
+			if(R2_s[j] == 90) R2_s[j] = 65;
+			else R2_s[j] += 1;
+		}
+	}
+	if(R2_s[0] == P2)
+	{
+		for(int k =0; k<L; ++k)
+		{
+			if(R3_s[k] == 90) R3_s[k] = 65;
+			else R3_s[k] += 1;
+		}
+	}
+}
 
 //
 void afficher_rotors()

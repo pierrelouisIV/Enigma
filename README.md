@@ -6,4 +6,5 @@ CHIFFREMENT MACHINE ENIGMA
 La configuration des rotors est aléatoire, elle peut être choisie manuellement dans rotors.h
 La configuration du tableau de connexion peut être modifiée dans le fichier tableaux.h
 Pour chiffrer, entrez un message clair sans espace en MAJUSCULE !
-
+Pour le déchiffrement :
+Le programme decrypte le chiffré obtenu et l'affiche à la fin.

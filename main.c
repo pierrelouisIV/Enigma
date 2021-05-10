@@ -15,6 +15,7 @@ int main(int argc, char **argv)
 	
 	//
 	char msg[100];
+	char dechiffre[100];
 	printf("Veuillez entrer le message clair : \n");
 	scanf("%s", msg);
 	char c;
@@ -22,7 +23,16 @@ int main(int argc, char **argv)
 	for(int i=0; i<strlen(msg); ++i)
 	{
 	   c = cablage(msg[i], n);
-	   printf("%c", crypter_lettre(c));
+	   c = crypter_lettre(c);
+	   printf("%c", c);
+	   dechiffre[i] = c;
+	}
+	printf("\n");
+	
+	for(int i=0; i<strlen(msg); ++i)
+	{
+	   c = decrypter_lettre(dechiffre[i]);
+	   printf("%c", cablage(c, n));
 	}
 	printf("\n");
 	return 0;
